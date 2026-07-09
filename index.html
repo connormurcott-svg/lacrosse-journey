@@ -156,7 +156,7 @@
 
   /* ---------- nav ---------- */
   header{
-    position:fixed; top:0; left:0; right:0; z-index:100;
+    position:fixed; top:0; left:0; right:0; z-index:106;
     padding:22px 0;
     transition:background 0.3s ease, padding 0.3s ease, box-shadow 0.3s ease;
   }
@@ -196,7 +196,37 @@
   nav a:hover::after{ transform:scaleX(1); }
   nav a:hover{ color:var(--white); }
   header.scrolled nav a:hover{ color:var(--ink); }
-  .nav-toggle{ display:none; }
+
+  .nav-toggle{
+    display:none;
+    flex-direction:column;
+    justify-content:center;
+    align-items:flex-end;
+    gap:5px;
+    width:30px; height:24px;
+    background:none; border:0; padding:0; cursor:pointer;
+    position:relative; z-index:110;
+  }
+  .nav-toggle span{
+    display:block;
+    width:100%; height:2px;
+    background:var(--white);
+    transition:transform 0.3s ease, opacity 0.3s ease, background 0.3s ease, width 0.3s ease;
+  }
+  header.scrolled .nav-toggle span{ background:var(--ink); }
+  .nav-toggle[aria-expanded="true"] span{ background:var(--ink); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1){ transform:translateY(7px) rotate(45deg); width:100%; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2){ opacity:0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3){ transform:translateY(-7px) rotate(-45deg); width:100%; }
+
+  .nav-backdrop{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(20,20,15,0.4);
+    z-index:104;
+    opacity:0;
+    transition:opacity 0.3s ease;
+  }
 
   /* ---------- hero ---------- */
   .hero{
@@ -445,7 +475,29 @@
 
   /* ---------- responsive ---------- */
   @media (max-width: 900px){
-    nav{ display:none; }
+    .nav-toggle{ display:flex; }
+    nav{
+      position:fixed; top:0; right:0;
+      height:100vh; width:min(78vw, 320px);
+      background:var(--bg);
+      box-shadow:-10px 0 30px rgba(0,0,0,0.18);
+      padding:100px 32px 40px;
+      transform:translateX(100%);
+      transition:transform 0.35s ease;
+      z-index:105;
+    }
+    nav.open{ transform:translateX(0); }
+    nav ul{ flex-direction:column; gap:8px; }
+    nav li{ border-bottom:1px solid var(--line); }
+    nav a{
+      display:block;
+      color:var(--ink-soft);
+      font-size:13px;
+      padding:14px 0;
+    }
+    nav a:hover{ color:var(--ink); }
+    body.nav-open{ overflow:hidden; }
+    .nav-backdrop.open{ display:block; opacity:1; }
     .about .wrap{ grid-template-columns:1fr; }
     .about-media{ aspect-ratio:16/10; }
     .stat-row{ grid-template-columns:repeat(2, 1fr); row-gap:20px; }
@@ -467,7 +519,7 @@
   <div class="wrap">
     <!-- EDIT: your name -->
     <a href="#home" class="brand">Connor Murcott</a>
-    <nav>
+    <nav id="site-nav">
       <ul>
         <li><a href="#about">About</a></li>
         <li><a href="#journey">Journey</a></li>
@@ -477,8 +529,12 @@
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </header>
+<div class="nav-backdrop" id="nav-backdrop"></div>
 
 <!-- ============ HERO ============ -->
 <section class="hero" id="home">
@@ -847,7 +903,34 @@
         e.preventDefault();
         target.scrollIntoView({ behavior: 'smooth' });
       }
+      closeMenu();
     });
+  });
+
+  // Mobile hamburger menu
+  const navToggle = document.getElementById('nav-toggle');
+  const siteNav = document.getElementById('site-nav');
+  const navBackdrop = document.getElementById('nav-backdrop');
+
+  const openMenu = () => {
+    siteNav.classList.add('open');
+    navBackdrop.classList.add('open');
+    navToggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-open');
+  };
+  const closeMenu = () => {
+    siteNav.classList.remove('open');
+    navBackdrop.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-open');
+  };
+  navToggle.addEventListener('click', () => {
+    if (siteNav.classList.contains('open')) closeMenu();
+    else openMenu();
+  });
+  navBackdrop.addEventListener('click', closeMenu);
+  window.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeMenu();
   });
 </script>
 
