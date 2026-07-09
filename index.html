@@ -316,6 +316,7 @@
   .stat-row{
     display:grid;
     grid-template-columns:repeat(4, 1fr);
+    column-gap:24px;
     margin-top:44px;
     border-top:1px solid var(--line);
   }
@@ -355,6 +356,7 @@
     font-family:var(--mono); font-size:14px; font-weight:600;
     color:var(--turf);
     padding-top:2px;
+    padding-right:14px;
     text-align:right;
     position:relative;
   }
@@ -440,36 +442,11 @@
   }
   .clip{ aspect-ratio:16/10; }
 
-  /* ---------- contact / footer ---------- */
-  .contact{ padding:130px 0 60px; text-align:center; background:var(--turf-tint); }
-  .contact h2{
-    font-family:var(--display); font-weight:400; text-transform:uppercase;
-    font-size:clamp(40px, 8vw, 84px);
-    line-height:0.98;
-  }
-  .contact p.sub{
-    color:var(--ink-soft); max-width:46ch; margin:20px auto 34px; font-size:16px;
-  }
-  .contact-email{
-    display:inline-block;
-    font-family:var(--mono); font-size:15px; letter-spacing:0.02em;
-    padding-bottom:4px; border-bottom:1px solid var(--ink);
-  }
-  .socials{
-    display:flex; justify-content:center; gap:22px;
-    margin:52px 0 40px;
-  }
-  .socials a{
-    width:42px; height:42px; border-radius:50%;
-    border:1px solid var(--ink);
-    display:flex; align-items:center; justify-content:center;
-    transition:background 0.2s ease, color 0.2s ease;
-  }
-  .socials a:hover{ background:var(--ink); color:var(--turf-tint); }
-  .socials svg{ width:17px; height:17px; }
+  /* ---------- footer ---------- */
+  footer{ padding:60px 0; text-align:center; background:var(--turf-tint); }
   footer .fine{
     font-family:var(--mono); font-size:11.5px; color:var(--ink-soft);
-    letter-spacing:0.04em; padding-top:26px; border-top:1px solid var(--line);
+    letter-spacing:0.04em;
     max-width:var(--max); margin:0 auto; padding-left:32px; padding-right:32px;
   }
 
@@ -500,7 +477,7 @@
     .nav-backdrop.open{ display:block; opacity:1; }
     .about .wrap{ grid-template-columns:1fr; }
     .about-media{ aspect-ratio:16/10; }
-    .stat-row{ grid-template-columns:repeat(2, 1fr); row-gap:20px; }
+    .stat-row{ grid-template-columns:repeat(2, 1fr); column-gap:24px; row-gap:20px; }
     .stat:nth-child(2){ border-right:none; }
     .team-grid{ grid-template-columns:1fr; }
     .gallery-grid{ grid-template-columns:repeat(2, 1fr); grid-auto-rows:150px; }
@@ -526,7 +503,6 @@
         <li><a href="#teams">Teams</a></li>
         <li><a href="#gallery">Gallery</a></li>
         <li><a href="#highlights">Highlights</a></li>
-        <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
     <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="site-nav">
@@ -555,7 +531,7 @@
       <span>5' 11"</span>
     </div>
   </div>
-  <div class="scroll-cue"><span>Scroll</span><span class="line"></span></div>
+  
 </section>
 
 <!-- ============ ABOUT ============ -->
@@ -604,7 +580,7 @@
     <div class="journey-head">
       <div class="eyebrow">The Journey</div>
       <h2 class="section-title">Yard By Yard</h2>
-      <p>Every milestone that got me here — add or remove entries as your story grows.</p>
+      <p>I've had great coaches throughout my lacrosse journey and teammates from PYA I still play with today.</p>
     </div>
 
     <div class="timeline">
@@ -635,13 +611,6 @@
         <div class="t-body">
           <h3>High School Ball</h3>
           <p>Playing at Chaminade High School - Freshman and Junior Varsity</p>
-        </div>
-      </div>
-      <div class="t-item">
-        <div class="t-year">{{2025}}</div>
-        <div class="t-body">
-          <h3>{{Current Chapter}}</h3>
-          <p>{{What you're working on right now — this season, recruiting, or a new team.}}</p>
         </div>
       </div>
     </div>
@@ -849,40 +818,13 @@
   </div>
 </section>
 
-<!-- ============ CONTACT / FOOTER ============ -->
-<section class="contact" id="contact">
-  <div class="wrap">
-    <div class="eyebrow" style="justify-content:center;">Get In Touch</div>
-    <h2>Let's<br>Connect</h2>
-    <!-- EDIT: short closing line -->
-    <p class="sub">Coaches, recruiters, or fellow players — reach out anytime.</p>
-    <!-- EDIT: your email -->
-    <a class="contact-email" href="mailto:{{you@email.com}}">{{you@email.com}}</a>
-
-    <div class="socials">
-      <!-- EDIT: point these at your real profiles, or delete ones you don't use -->
-      <a href="https://instagram.com/{{yourhandle}}" aria-label="Instagram" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r="1"/></svg>
-      </a>
-      <a href="https://youtube.com/@{{yourhandle}}" aria-label="YouTube" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="2.5" y="6" width="19" height="12" rx="3"/><path d="M11 9.5l5 2.5-5 2.5z" fill="currentColor" stroke="none"/></svg>
-      </a>
-      <a href="https://twitter.com/{{yourhandle}}" aria-label="Twitter / X" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4l16 16M20 4L4 20"/></svg>
-      </a>
-      <a href="https://hudl.com/profile/{{yourhandle}}" aria-label="Hudl" target="_blank" rel="noopener">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M8 5v14l11-7z"/></svg>
-      </a>
-    </div>
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="fine">
+    <!-- EDIT: your name + year auto-updates -->
+    © <span id="year"></span> Connor Murcott. Built with pride on the field.
   </div>
-
-  <footer>
-    <div class="fine">
-      <!-- EDIT: your name + year auto-updates -->
-      © <span id="year"></span> Connor Murcott. Built with pride on the field.
-    </div>
-  </footer>
-</section>
+</footer>
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
