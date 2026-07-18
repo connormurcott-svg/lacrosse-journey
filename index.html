@@ -427,10 +427,62 @@
     grid-auto-rows:190px;
     gap:6px;
   }
-  .gallery-item{ overflow:hidden; }
+  .gallery-item{ overflow:hidden; position:relative; }
   .gallery-item .ph-media{ height:100%; }
   .gallery-item.tall{ grid-row:span 2; }
   .gallery-item.wide{ grid-column:span 2; }
+  .gallery-item img.zoomable{
+    cursor:zoom-in;
+    transition:transform 0.4s ease;
+  }
+  .gallery-item img.zoomable:hover,
+  .gallery-item img.zoomable:focus-visible{ transform:scale(1.06); }
+
+  /* ---------- lightbox ---------- */
+  .lightbox{
+    position:fixed; inset:0; z-index:200;
+    background:rgba(10,10,8,0.94);
+    display:flex; align-items:center; justify-content:center;
+    padding:60px;
+  }
+  .lightbox[hidden]{ display:none; }
+  .lightbox-img{
+    width:auto; height:auto;
+    max-width:88vw; max-height:86vh;
+    object-fit:contain;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    border-radius:2px;
+  }
+  .lightbox-close, .lightbox-nav{
+    position:absolute;
+    background:rgba(255,255,255,0.08);
+    border:1px solid rgba(255,255,255,0.2);
+    border-radius:50%;
+    color:var(--white);
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+    transition:background 0.2s ease;
+  }
+  .lightbox-close:hover, .lightbox-nav:hover{ background:rgba(255,255,255,0.18); }
+  .lightbox-close{
+    top:24px; right:28px;
+    width:44px; height:44px;
+    font-size:26px; line-height:1;
+  }
+  .lightbox-nav{
+    top:50%; transform:translateY(-50%);
+    width:48px; height:48px;
+    font-size:16px;
+  }
+  .lightbox-prev{ left:24px; }
+  .lightbox-next{ right:24px; }
+  @media (max-width:560px){
+    .lightbox{ padding:16px; }
+    .lightbox-close{ top:12px; right:12px; width:38px; height:38px; }
+    .lightbox-nav{ width:40px; height:40px; }
+    .lightbox-prev{ left:8px; }
+    .lightbox-next{ right:8px; }
+  }
 
   /* ---------- highlights ---------- */
   .highlights{ padding:110px 0; }
@@ -586,28 +638,28 @@
     <div class="timeline">
       <!-- EDIT: each t-item is one milestone. Duplicate the block to add more. -->
       <div class="t-item">
-        <div class="t-year">2017 </div>
+        <div class="t-year">2007-2020 </div>
         <div class="t-body">
           <h3>First Stick</h3>
           <p>Starting lacrosse with PYA and Harvey Cohen Lacrosse Club</p>
         </div>
       </div>
       <div class="t-item">
-        <div class="t-year">2020 </div>
+        <div class="t-year">2020-2024 </div>
         <div class="t-body">
           <h3>Middle School Ball</h3>
           <p>Playing middle school lacrosse at Carrie Palmer Webber Middle School</p>
         </div>
       </div>
        <div class="t-item">
-        <div class="t-year">2023 </div>
+        <div class="t-year">2020-2024 </div>
         <div class="t-body">
           <h3>Club Ball</h3>
           <p>Playing lacrosse for True - Long Island, Empire, and National</p>
         </div>
       </div>
       <div class="t-item">
-        <div class="t-year">2024 </div>
+        <div class="t-year">2024-2028 </div>
         <div class="t-body">
           <h3>High School Ball</h3>
           <p>Playing at Chaminade High School - Freshman and Junior Varsity</p>
@@ -623,7 +675,7 @@
     <div class="teams-head">
       <div class="eyebrow">Teams</div>
       <h2 class="section-title">Where I Suit Up</h2>
-      <p>The programs that have shaped my game, past and present.</p>
+      <p>Where you can find me most weekends</p>
     </div>
 
     <div class="team-grid">
@@ -631,39 +683,39 @@
       <div class="team-card">
         <div class="team-badge">HS</div>
         <div>
-          <h3>{{High School Team Name}}</h3>
-          <div class="team-level">Varsity</div>
+          <h3>Chaminade High School</h3>
+          <div class="team-level">JV B, JV A and hopefully Varsity</div>
         </div>
         <ul class="team-detail-list">
-          <li><span>Position</span><span>{{Attack}}</span></li>
-          <li><span>Number</span><span>{{#00}}</span></li>
-          <li><span>Years</span><span>{{2023–Present}}</span></li>
+          <li><span>Position</span><span>LSM</span></li>
+          <li><span>Number</span><span>35</span></li>
+          <li><span>Years</span><span>2024-2028</span></li>
         </ul>
       </div>
 
       <div class="team-card">
         <div class="team-badge">Club</div>
         <div>
-          <h3>{{Club / Travel Team Name}}</h3>
+          <h3>True Long Island 2028 Black and Empire</h3>
           <div class="team-level">Club</div>
         </div>
         <ul class="team-detail-list">
-          <li><span>Position</span><span>{{Attack}}</span></li>
-          <li><span>Number</span><span>{{#00}}</span></li>
-          <li><span>Years</span><span>{{2022–Present}}</span></li>
+          <li><span>Position</span><span>LSM</span></li>
+          <li><span>Number</span><span>77</span></li>
+          <li><span>Years</span><span>2017–Present</span></li>
         </ul>
       </div>
 
       <div class="team-card">
-        <div class="team-badge">All-Star</div>
+        <div class="team-badge">National</div>
         <div>
-          <h3>{{Select / All-Star Team}}</h3>
-          <div class="team-level">Regional</div>
+          <h3>True National</h3>
+          <div class="team-level">Gold</div>
         </div>
         <ul class="team-detail-list">
-          <li><span>Position</span><span>{{Attack}}</span></li>
-          <li><span>Number</span><span>{{#00}}</span></li>
-          <li><span>Years</span><span>{{2024}}</span></li>
+          <li><span>Position</span><span>LSM</span></li>
+          <li><span>Number</span><span>42</span></li>
+          <li><span>Years</span><span>2024–Present</span></li>
         </ul>
       </div>
     </div>
@@ -678,13 +730,13 @@
         <div class="eyebrow">Gallery</div>
         <h2 class="section-title">In The Field</h2>
       </div>
-      <p>Game action, team moments, and everything in between. Swap each tile below for your own photo.</p>
+      <p>Highlight pictures from over the years</p>
     </div>
 
     <div class="gallery-grid">
       <!-- EDIT: each gallery-item is one photo slot. Replace ph-media with an <img>. -->
       <div class="gallery-item tall">
-        <div class="ph-media"><div class="ph-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg>Photo</div></div>
+        <img src="images/champions.png" alt="True Long Island team posing together in front of a Champions sign" class="zoomable">
       </div>
       <div class="gallery-item wide" style="background:#fff;">
         <svg viewBox="0 0 900 290" width="100%" height="100%" preserveAspectRatio="xMidYMid meet" style="display:block;">
@@ -755,26 +807,31 @@
         </svg>
       </div>
       <div class="gallery-item">
-        <div class="ph-media"><div class="ph-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg>Photo</div></div>
+        <img src="images/award.png" alt="Holding a Long Island Champions plaque on the field" class="zoomable">
       </div>
       <div class="gallery-item">
-        <div class="ph-media"><div class="ph-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg>Photo</div></div>
+        <img src="images/award2.png" alt="Holding an NXT championship trophy on the field" class="zoomable">
       </div>
-      <div class="gallery-item">
-        <div class="ph-media"><div class="ph-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg>Photo</div></div>
+      <div class="gallery-item wide">
+        <img src="images/withball.jpg" alt="Sprinting downfield with the ball as a defender closes in" class="zoomable">
       </div>
       <div class="gallery-item tall">
-        <div class="ph-media"><div class="ph-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg>Photo</div></div>
+        <img src="images/advertisement.png" alt="True Long Island recruiting post featuring Connor on the field" class="zoomable">
       </div>
       <div class="gallery-item">
-        <div class="ph-media"><div class="ph-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg>Photo</div></div>
-      </div>
-      <div class="gallery-item">
-        <div class="ph-media"><div class="ph-label"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="6" width="18" height="13" rx="2"/><circle cx="12" cy="12.5" r="3.5"/></svg>Photo</div></div>
+        <img src="images/alsochampions.png" alt="True National team group photo after winning the West Chester Howdown" class="zoomable">
       </div>
     </div>
   </div>
 </section>
+
+<!-- ============ LIGHTBOX ============ -->
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Photo viewer" hidden>
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">&times;</button>
+  <button class="lightbox-nav lightbox-prev" id="lightbox-prev" aria-label="Previous photo">&#10094;</button>
+  <img class="lightbox-img" id="lightbox-img" src="" alt="">
+  <button class="lightbox-nav lightbox-next" id="lightbox-next" aria-label="Next photo">&#10095;</button>
+</div>
 
 <!-- ============ HIGHLIGHTS ============ -->
 <section class="highlights" id="highlights">
@@ -794,27 +851,26 @@
         allowfullscreen>
       </iframe>
     </div>
-
-    <div class="clip-grid">
-      <div class="clip">
-        <div class="ph-video">
-          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="ph-caption">{{Clip Title}}</div>
-        </div>
-      </div>
-      <div class="clip">
-        <div class="ph-video">
-          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="ph-caption">{{Clip Title}}</div>
-        </div>
-      </div>
-      <div class="clip">
-        <div class="ph-video">
-          <div class="play-btn"><svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></div>
-          <div class="ph-caption">{{Clip Title}}</div>
-        </div>
-      </div>
+    <div class="feature-video">
+      <iframe
+        src="https://www.youtube.com/embed/DAtvGpljshs"
+        title="Featured highlight video"
+        style="width:100%; height:100%; display:block; border:0;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
     </div>
+    <div class="feature-video">
+      <iframe
+        src="https://www.youtube.com/embed/5i0d9CnnY3c"
+        title="Featured highlight video"
+        style="width:100%; height:100%; display:block; border:0;"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+    
   </div>
 </section>
 
@@ -873,6 +929,54 @@
   navBackdrop.addEventListener('click', closeMenu);
   window.addEventListener('keydown', e => {
     if (e.key === 'Escape') closeMenu();
+  });
+
+  // Gallery lightbox
+  const galleryImgs = Array.from(document.querySelectorAll('.gallery-item img.zoomable'));
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxClose = document.getElementById('lightbox-close');
+  const lightboxPrev = document.getElementById('lightbox-prev');
+  const lightboxNext = document.getElementById('lightbox-next');
+  let currentIndex = 0;
+
+  const showImage = index => {
+    currentIndex = (index + galleryImgs.length) % galleryImgs.length;
+    const img = galleryImgs[currentIndex];
+    lightboxImg.src = img.src;
+    lightboxImg.alt = img.alt;
+  };
+  const openLightbox = index => {
+    showImage(index);
+    lightbox.hidden = false;
+    document.body.style.overflow = 'hidden';
+    lightboxClose.focus();
+  };
+  const closeLightbox = () => {
+    lightbox.hidden = true;
+    lightboxImg.src = '';
+    document.body.style.overflow = '';
+  };
+
+  galleryImgs.forEach((img, index) => {
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', 'View full size: ' + (img.alt || 'photo'));
+    img.addEventListener('click', () => openLightbox(index));
+    img.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); openLightbox(index); }
+    });
+  });
+
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', () => showImage(currentIndex - 1));
+  lightboxNext.addEventListener('click', () => showImage(currentIndex + 1));
+  lightbox.addEventListener('click', e => { if (e.target === lightbox) closeLightbox(); });
+  window.addEventListener('keydown', e => {
+    if (lightbox.hidden) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowLeft') showImage(currentIndex - 1);
+    if (e.key === 'ArrowRight') showImage(currentIndex + 1);
   });
 </script>
 
